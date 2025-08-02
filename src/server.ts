@@ -94,6 +94,15 @@ app.use(limiter);
 
     app.use('/api/v1', v1Routes);
 
+    app.use((req, res, next) => {
+      res.status(404).json({
+        code: 'NotFound',
+        message: 'Page not found, wrong url',
+      });
+
+      next();
+    });
+
     app.listen(config.PORT, () => {
       logger.info(`Server running: http://localhost:${config.PORT}`);
     });
